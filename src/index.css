@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans antialiased;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-slate-900; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-cyan-500; }
+  ::selection { @apply bg-cyan-500/30 text-cyan-100; }
+}
+
+@layer components {
+  /* Tarjeta con efecto vidrio */
+  .glass {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl;
+  }
+
+  /* Texto con gradiente cyan → púrpura */
+  .grad-text {
+    @apply bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent;
+  }
+
+  /* Espaciado estándar de sección */
+  .section {
+    @apply py-24 px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Ancho máximo centrado */
+  .wrap {
+    @apply max-w-6xl mx-auto;
+  }
+
+  /* Botón primario con gradiente */
+  .btn {
+    @apply px-7 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold
+           rounded-full hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-200;
+  }
+
+  /* Botón contorno */
+  .btn-outline {
+    @apply px-7 py-3 border border-slate-600 text-slate-300 font-semibold rounded-full
+           hover:border-cyan-400 hover:text-cyan-400 hover:scale-105 transition-all duration-200;
+  }
+}
