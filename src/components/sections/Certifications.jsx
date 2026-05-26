@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import SectionTitle from '../ui/SectionTitle'
 
 // ── Datos: certificados y cursos ─────────────────────────────────────────────
@@ -8,7 +8,7 @@ const CERTS = [
     emisor: 'freeCodeCamp',
     año: '2024',
     icono: '📱',
-    color: 'from-cyan-500 to-blue-600',
+    color: 'from-curious-blue-500 to-blue-600',
   },
   {
     nombre: 'JavaScript Algorithms & Data Structures',
@@ -43,7 +43,7 @@ const CERTS = [
     emisor: 'Udemy',
     año: '2024',
     icono: '⚛️',
-    color: 'from-blue-400 to-cyan-600',
+    color: 'from-blue-400 to-curious-blue-600',
   },
   {
     nombre: 'Docker para Desarrolladores',
@@ -77,7 +77,7 @@ const TarjetaCert = ({ c, i }) => (
     </div>
 
     <div className="min-w-0 flex-1">
-      <h3 className="text-white font-semibold text-sm mb-0.5 group-hover:text-cyan-400 transition-colors leading-snug">
+      <h3 className="text-white font-semibold text-sm mb-0.5 group-hover:text-curious-blue-400 transition-colors leading-snug">
         {c.nombre}
       </h3>
       <p className="text-slate-400 text-xs mb-2">{c.emisor}</p>

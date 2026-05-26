@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaGithub, FaInstagram, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 import { FiSend, FiCheck, FiMapPin } from 'react-icons/fi'
@@ -35,7 +35,7 @@ const REDES = [
     label: 'Email',
     valor: EMAIL,
     href: `mailto:${EMAIL}`,
-    hover: 'hover:text-cyan-400 hover:border-cyan-400',
+    hover: 'hover:text-curious-blue-400 hover:border-curious-blue-400',
   },
 ]
 // ─────────────────────────────────────────────────────────────────────────────
@@ -60,8 +60,8 @@ const Contact = () => {
   }
 
   const input = 'w-full bg-slate-800/60 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 ' +
-    'placeholder:text-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-1 ' +
-    'focus:ring-cyan-500/30 transition-all text-sm'
+    'placeholder:text-slate-600 focus:outline-none focus:border-curious-blue-500 focus:ring-1 ' +
+    'focus:ring-curious-blue-500/30 transition-all text-sm'
 
   return (
     <section id="contact" className="section bg-slate-900/50">
@@ -90,7 +90,7 @@ const Contact = () => {
                 intercambiar conocimientos sobre tecnología. El mejor canal es el email.
               </p>
               <div className="flex items-center gap-3 text-slate-400 text-sm">
-                <FiMapPin className="text-cyan-400 shrink-0" />
+                <FiMapPin className="text-curious-blue-400 shrink-0" />
                 <span>{UBICACION}</span>
               </div>
             </div>

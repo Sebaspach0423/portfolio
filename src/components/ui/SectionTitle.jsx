@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion'
 
-// Componente reutilizable para el título de cada sección
-// Props: tag (etiqueta pequeña), title (texto normal), highlight (texto con gradiente), subtitle
 const SectionTitle = ({ tag, title, highlight, subtitle }) => (
   <motion.div
     className="text-center mb-16"
@@ -11,17 +9,23 @@ const SectionTitle = ({ tag, title, highlight, subtitle }) => (
     transition={{ duration: 0.6 }}
   >
     {tag && (
-      <span className="inline-block px-4 py-1.5 bg-cyan-500/10 border border-cyan-500/30
-                       rounded-full text-cyan-400 text-xs font-semibold tracking-widest uppercase mb-4">
+      <motion.span
+        className="inline-flex items-center gap-2 px-4 py-1.5
+                   bg-curious-blue-500/10 border border-curious-blue-500/25
+                   rounded-full text-curious-blue-400 text-xs font-semibold tracking-widest uppercase mb-5"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-curious-blue-400 animate-pulse" />
         {tag}
-      </span>
+      </motion.span>
     )}
 
-    <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-4">
+    <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-4 leading-tight">
       {title}{' '}
-      {highlight && (
-        <span className="grad-text">{highlight}</span>
-      )}
+      {highlight && <span className="grad-text">{highlight}</span>}
     </h2>
 
     {subtitle && (
@@ -29,10 +33,14 @@ const SectionTitle = ({ tag, title, highlight, subtitle }) => (
     )}
 
     {/* Línea decorativa */}
-    <div className="flex items-center justify-center gap-2 mt-6">
-      <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500" />
-      <div className="w-2 h-2 rounded-full bg-cyan-400" />
-      <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-500" />
+    <div className="flex items-center justify-center gap-3 mt-7">
+      <div className="h-px w-20 bg-gradient-to-r from-transparent to-curious-blue-500/60" />
+      <div className="flex gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-curious-blue-700/60" />
+        <span className="w-2.5 h-2.5 rounded-full bg-curious-blue-400" />
+        <span className="w-1.5 h-1.5 rounded-full bg-curious-blue-700/60" />
+      </div>
+      <div className="h-px w-20 bg-gradient-to-l from-transparent to-curious-blue-500/60" />
     </div>
   </motion.div>
 )

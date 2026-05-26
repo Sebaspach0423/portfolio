@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiChevronDown } from 'react-icons/fi'
 import SectionTitle from '../ui/SectionTitle'
@@ -46,7 +46,7 @@ const ItemFAQ = ({ faq, i, abierto, toggle }) => (
       <motion.div
         animate={{ rotate: abierto ? 180 : 0 }}
         transition={{ duration: 0.3 }}
-        className="shrink-0 text-cyan-400"
+        className="shrink-0 text-curious-blue-400"
       >
         <FiChevronDown size={20} />
       </motion.div>

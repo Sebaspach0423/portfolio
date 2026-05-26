@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaGithub, FaInstagram, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 import { FiArrowDown } from 'react-icons/fi'
@@ -45,8 +46,8 @@ const Typewriter = ({ texts }) => {
 
   return (
     <span>
-      <span className="text-cyan-400 font-medium">{txt}</span>
-      <span className="animate-pulse text-purple-400">|</span>
+      <span className="text-curious-blue-300 font-medium">{txt}</span>
+      <span className="animate-pulse text-violet-400">|</span>
     </span>
   )
 }
@@ -60,18 +61,21 @@ const Orb = ({ cls, animate, delay = 0 }) => (
   />
 )
 
-const ir = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+const Hero = () => {
+  const navigate = useNavigate()
+  return (
+  <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: '#050a14' }}>
 
-const Hero = () => (
-  <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
+    {/* Orbes de fondo — más grandes y visibles */}
+    <Orb cls="w-[600px] h-[600px] bg-curious-blue-500/10 -top-32 -left-40"   animate={{ x: [0,50,-20,0], y: [0,-30,40,0] }} />
+    <Orb cls="w-[500px] h-[500px] bg-violet-600/10 bottom-0 -right-28" animate={{ x: [0,-40,20,0], y: [0,50,-30,0] }} delay={3} />
+    <Orb cls="w-[300px] h-[300px] bg-cyan-400/8 top-1/4 left-1/2 -translate-x-1/2" animate={{ x: [0,30,-50,0], y: [0,-60,20,0] }} delay={5} />
 
-    {/* Orbes de fondo */}
-    <Orb cls="w-[480px] h-[480px] bg-cyan-600/15 -top-24 -left-32"   animate={{ x: [0,50,-20,0], y: [0,-30,40,0] }} />
-    <Orb cls="w-[380px] h-[380px] bg-purple-600/15 bottom-0 -right-20" animate={{ x: [0,-40,20,0], y: [0,50,-30,0] }} delay={3} />
-    <Orb cls="w-64 h-64 bg-blue-600/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" animate={{ x: [0,30,-50,0], y: [0,-60,20,0] }} delay={5} />
+    {/* Dot grid pattern */}
+    <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(7,154,218,0.12)_1px,transparent_1px)] bg-[size:32px_32px] opacity-50" />
 
-    {/* Rejilla de fondo */}
-    <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
+    {/* Grid lines overlay */}
+    <div className="absolute inset-0 bg-[linear-gradient(rgba(7,154,218,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(7,154,218,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
     <div className="relative z-10 wrap px-4 sm:px-6 lg:px-8 py-24">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -84,7 +88,7 @@ const Hero = () => (
         >
           {/* Saludo */}
           <motion.p
-            className="text-cyan-400 text-xs font-semibold tracking-[0.4em] uppercase mb-5"
+            className="text-curious-blue-400 text-xs font-semibold tracking-[0.4em] uppercase mb-5"
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -124,7 +128,7 @@ const Hero = () => (
             {BIO}
           </motion.p>
 
-          {/* Chips info */}
+          {/* Chips info — glassmorphism mejorado */}
           <motion.div
             className="flex flex-wrap gap-3 mb-8"
             initial={{ opacity: 0, y: 16 }}
@@ -136,7 +140,7 @@ const Hero = () => (
               { icon: '📍', text: 'Huánuco, Perú' },
               { icon: '📅', text: AÑO },
             ].map(({ icon, text }) => (
-              <span key={text} className="flex items-center gap-1.5 px-3 py-1.5 glass text-slate-400 text-sm">
+              <span key={text} className="glass text-slate-300 text-sm px-4 py-2 flex items-center gap-2">
                 {icon} {text}
               </span>
             ))}
@@ -149,8 +153,8 @@ const Hero = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.72 }}
           >
-            <button onClick={() => ir('projects')} className="btn">Ver Proyectos</button>
-            <button onClick={() => ir('contact')}  className="btn-outline">Contáctame</button>
+            <button onClick={() => navigate('/proyectos')} className="btn">Ver Proyectos</button>
+            <button onClick={() => navigate('/contacto')}  className="btn-outline">Contáctame</button>
           </motion.div>
 
           {/* Redes sociales */}
@@ -167,8 +171,23 @@ const Hero = () => (
                 target={href.startsWith('mailto') ? '_self' : '_blank'}
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-700
-                           text-slate-400 hover:border-cyan-400 hover:text-cyan-400 hover:scale-110 transition-all"
+                className="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 transition-all duration-200 hover:scale-110"
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'rgba(7,154,218,0.45)'
+                  e.currentTarget.style.color = '#79d5ff'
+                  e.currentTarget.style.boxShadow = '0 0 14px rgba(7,154,218,0.25)'
+                  e.currentTarget.style.background = 'rgba(7,154,218,0.08)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)'
+                  e.currentTarget.style.color = '#94a3b8'
+                  e.currentTarget.style.boxShadow = 'none'
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
+                }}
               >
                 <Icon size={17} />
               </a>
@@ -184,15 +203,19 @@ const Hero = () => (
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <div className="relative">
-            {/* Anillo giratorio con gradiente */}
+            {/* Anillo exterior giratorio con guiones */}
             <motion.div
-              className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-purple-500 to-blue-500 opacity-70 blur-sm"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+              className="absolute -inset-4 rounded-full border border-dashed border-curious-blue-500/30 animate-spin-slow pointer-events-none"
             />
 
+            {/* Anillo de gradiente con glow */}
+            <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-curious-blue-400 via-violet-500 to-curious-blue-600 opacity-60 blur-md pointer-events-none" />
+
+            {/* Anillo sólido interior */}
+            <div className="absolute -inset-0.5 rounded-full border border-curious-blue-400/50 pointer-events-none" />
+
             {/* Foto de perfil */}
-            <div className="relative w-60 h-60 sm:w-72 sm:h-72 rounded-full border-4 border-slate-950 overflow-hidden">
+            <div className="relative w-60 h-60 sm:w-72 sm:h-72 rounded-full overflow-hidden" style={{ border: '3px solid #050a14' }}>
               <img
                 src="/perfil.jpeg"
                 alt="Walter Sebastian Pacheco Orizano"
@@ -200,13 +223,17 @@ const Hero = () => (
               />
             </div>
 
-            {/* Badge: disponible */}
+            {/* Badge: disponible — con pulse dot */}
             <motion.div
-              className="absolute -top-3 -right-6 glass px-3 py-2 text-sm font-medium text-white shadow-xl"
+              className="absolute -top-3 -right-6 glass px-3 py-2 text-sm font-medium text-white shadow-xl flex items-center gap-2"
               animate={{ y: [0, -7, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              <span className="text-green-400">●</span> Disponible
+              <span className="relative flex h-2 w-2">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-ping absolute" />
+                <span className="w-2 h-2 rounded-full bg-green-400 relative" />
+              </span>
+              Disponible
             </motion.div>
 
             {/* Badge: año */}
@@ -226,13 +253,14 @@ const Hero = () => (
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-slate-400 transition-colors"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        onClick={() => ir('about')}
+        onClick={() => navigate('/proyectos')}
       >
         <span className="text-xs tracking-[0.3em]">SCROLL</span>
         <FiArrowDown size={15} />
       </motion.button>
     </div>
   </section>
-)
+  )
+}
 
 export default Hero

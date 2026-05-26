@@ -1,51 +1,97 @@
+import { Link } from 'react-router-dom'
 import { FaGithub, FaInstagram, FaEnvelope, FaWhatsapp, FaHeart } from 'react-icons/fa'
 
-// ── Datos del footer ────────────────────────────────────────────────────────
-const NOMBRE   = 'Walter Pacheco'
-const ROL      = 'Estudiante de Ingeniería de Sistemas'
 const SOCIALES = [
-  { icon: FaGithub,    href: 'https://github.com/Sebaspach0423',                                      label: 'GitHub' },
-  { icon: FaInstagram, href: 'https://www.instagram.com/pachecoorizano?igsh=azBxdWIzenA3Mndw',        label: 'Instagram' },
-  { icon: FaWhatsapp,  href: 'https://wa.me/51965278791',                                              label: 'WhatsApp' },
-  { icon: FaEnvelope,  href: 'mailto:wsebaspach23@gmail.com',                                          label: 'Email' },
+  { icon: FaGithub,    href: 'https://github.com/Sebaspach0423',                                     label: 'GitHub',    hover: 'hover:border-slate-400 hover:text-slate-300' },
+  { icon: FaInstagram, href: 'https://www.instagram.com/pachecoorizano?igsh=azBxdWIzenA3Mndw',       label: 'Instagram', hover: 'hover:border-pink-400 hover:text-pink-400' },
+  { icon: FaWhatsapp,  href: 'https://wa.me/51965278791',                                             label: 'WhatsApp',  hover: 'hover:border-green-400 hover:text-green-400' },
+  { icon: FaEnvelope,  href: 'mailto:wsebaspach23@gmail.com',                                         label: 'Email',     hover: 'hover:border-curious-blue-400 hover:text-curious-blue-400' },
 ]
-// ────────────────────────────────────────────────────────────────────────────
+
+const LINKS_FOOTER = [
+  { label: 'Proyectos',       path: '/proyectos' },
+  { label: 'Certificaciones', path: '/certificaciones' },
+  { label: 'Blog',            path: '/blog' },
+  { label: 'Dashboard',       path: '/dashboard' },
+  { label: 'Contacto',        path: '/contacto' },
+]
 
 const Footer = () => (
-  <footer className="bg-slate-950 border-t border-white/5">
-    <div className="wrap px-4 sm:px-6 lg:px-8 py-10">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+  <footer className="bg-slate-950 border-t border-curious-blue-500/10">
+    {/* Línea decorativa superior */}
+    <div className="h-px w-full bg-gradient-to-r from-transparent via-curious-blue-500/40 to-transparent" />
+
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
 
         {/* Marca */}
-        <div className="text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
-            <span className="w-7 h-7 rounded-md bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs">W</span>
-            <p className="text-lg font-display font-bold grad-text">Walter Pacheco</p>
+        <div>
+          <Link to="/" className="flex items-center gap-2.5 mb-4 w-fit group">
+            <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-curious-blue-500 to-curious-blue-800
+                             flex items-center justify-center text-white font-bold text-sm
+                             shadow-lg shadow-curious-blue-900/40
+                             group-hover:shadow-curious-blue-500/20 transition-all">W</span>
+            <span className="text-lg font-display font-bold grad-text">Walter Pacheco</span>
+          </Link>
+          <p className="text-slate-500 text-sm leading-relaxed">
+            Estudiante de Ingeniería de Sistemas en la UNHEVAL.<br />
+            Apasionado por el desarrollo web moderno.
+          </p>
+        </div>
+
+        {/* Links */}
+        <div>
+          <p className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+            <span className="w-1 h-4 rounded-full bg-curious-blue-500" />
+            Páginas
+          </p>
+          <div className="flex flex-col gap-2">
+            {LINKS_FOOTER.map(({ label, path }) => (
+              <Link
+                key={path}
+                to={path}
+                className="text-slate-500 hover:text-curious-blue-400 text-sm transition-colors
+                           hover:translate-x-1 inline-block"
+              >
+                {label}
+              </Link>
+            ))}
           </div>
-          <p className="text-slate-500 text-sm">{ROL}</p>
         </div>
 
-        {/* Redes sociales */}
-        <div className="flex gap-3">
-          {SOCIALES.map(({ icon: Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith('mailto') ? '_self' : '_blank'}
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-700
-                         text-slate-400 hover:border-cyan-400 hover:text-cyan-400 hover:scale-110 transition-all"
-            >
-              <Icon size={15} />
-            </a>
-          ))}
+        {/* Redes */}
+        <div>
+          <p className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+            <span className="w-1 h-4 rounded-full bg-curious-blue-500" />
+            Redes sociales
+          </p>
+          <div className="flex gap-3">
+            {SOCIALES.map(({ icon: Icon, href, label, hover }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('mailto') ? '_self' : '_blank'}
+                rel="noopener noreferrer"
+                aria-label={label}
+                className={`w-10 h-10 flex items-center justify-center rounded-xl
+                            border border-slate-700/60 text-slate-500
+                            hover:scale-110 transition-all duration-200 ${hover}`}
+              >
+                <Icon size={16} />
+              </a>
+            ))}
+          </div>
         </div>
+      </div>
 
-        {/* Créditos */}
-        <p className="text-slate-600 text-sm flex items-center gap-1">
-          © {new Date().getFullYear()} {NOMBRE} · Hecho con
-          <FaHeart className="text-rose-500 mx-0.5" size={11} /> y React
+      {/* Bottom bar */}
+      <div className="border-t border-slate-800/60 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p className="text-slate-600 text-sm flex items-center gap-1.5">
+          © {new Date().getFullYear()} Walter Sebastian Pacheco Orizano · Hecho con
+          <FaHeart className="text-rose-500/80" size={11} /> y React
+        </p>
+        <p className="text-slate-700 text-xs">
+          React + Vite + TailwindCSS + Framer Motion + Docker
         </p>
       </div>
     </div>

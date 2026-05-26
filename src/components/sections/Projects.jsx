@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt, FaStar, FaCodeBranch } from 'react-icons/fa'
 import SectionTitle from '../ui/SectionTitle'
@@ -32,7 +32,7 @@ const PROYECTOS = [
     titulo: 'DevNotes — Editor Markdown en Vivo',
     descripcion: 'Editor de notas técnicas con vista previa Markdown en tiempo real, resaltado de sintaxis para código, organización por etiquetas con drag & drop, buscador full-text y exportación a PDF o HTML con un clic.',
     emoji: '📝',
-    gradiente: 'from-cyan-500 to-blue-600',
+    gradiente: 'from-curious-blue-500 to-blue-600',
     tecnologias: ['React', 'TypeScript', 'Marked.js', 'Highlight.js', 'Dnd-kit'],
     github: 'https://github.com/wsebaspach',
     demo: 'https://github.com/wsebaspach',
@@ -54,7 +54,7 @@ const PROYECTOS = [
 
 const TarjetaProyecto = ({ p, i }) => (
   <motion.div
-    className="glass overflow-hidden group hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/5"
+    className="glass overflow-hidden group hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-curious-blue-500/5"
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -76,7 +76,7 @@ const TarjetaProyecto = ({ p, i }) => (
 
     <div className="p-6">
       {/* Título */}
-      <h3 className="text-white font-bold text-xl mb-2 group-hover:text-cyan-400 transition-colors">
+      <h3 className="text-white font-bold text-xl mb-2 group-hover:text-curious-blue-400 transition-colors">
         {p.titulo}
       </h3>
       {/* Descripción */}
@@ -99,8 +99,8 @@ const TarjetaProyecto = ({ p, i }) => (
           <FaGithub size={14} /> Código
         </a>
         <a href={p.demo} target="_blank" rel="noopener noreferrer"
-           className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600
-                      rounded-xl text-white text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/20 transition-all">
+           className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-curious-blue-500 to-blue-600
+                      rounded-xl text-white text-sm font-medium hover:shadow-lg hover:shadow-curious-blue-500/20 transition-all">
           <FaExternalLinkAlt size={12} /> Demo
         </a>
       </div>

@@ -1,35 +1,54 @@
-import Navbar       from './components/layout/Navbar'
-import Footer       from './components/layout/Footer'
-import Hero         from './components/sections/Hero'
-import About        from './components/sections/About'
-import Skills       from './components/sections/Skills'
-import Projects     from './components/sections/Projects'
-import Experience   from './components/sections/Experience'
-import Certifications from './components/sections/Certifications'
-import Stats        from './components/sections/Stats'
-import Testimonials from './components/sections/Testimonials'
-import Hobbies      from './components/sections/Hobbies'
-import FAQ          from './components/sections/FAQ'
-import Contact      from './components/sections/Contact'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+
+import Navbar   from './components/layout/Navbar'
+import Footer   from './components/layout/Footer'
+
+// ── Páginas ──────────────────────────────────────────────────────────────────
+import Home              from './pages/Home'
+import Proyectos         from './pages/Proyectos'
+import ProyectoDetalle   from './pages/ProyectoDetalle'
+import Certificaciones   from './pages/Certificaciones'
+import CertificadoDetalle from './pages/CertificadoDetalle'
+import Blog              from './pages/Blog'
+import BlogPost          from './pages/BlogPost'
+import Dashboard         from './pages/Dashboard'
+import Contacto          from './pages/Contacto'
+import NotFound          from './pages/NotFound'
+
+// AnimatePresence necesita la location actual para animar entre páginas
+function AnimatedRoutes() {
+  const location = useLocation()
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/"                      element={<Home />} />
+        <Route path="/proyectos"             element={<Proyectos />} />
+        <Route path="/proyectos/:id"         element={<ProyectoDetalle />} />
+        <Route path="/certificaciones"       element={<Certificaciones />} />
+        <Route path="/certificaciones/:id"   element={<CertificadoDetalle />} />
+        <Route path="/blog"                  element={<Blog />} />
+        <Route path="/blog/:slug"            element={<BlogPost />} />
+        <Route path="/dashboard"             element={<Dashboard />} />
+        <Route path="/contacto"              element={<Contacto />} />
+        <Route path="*"                      element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
+  )
+}
+
 function App() {
   return (
-    <div className="min-h-screen bg-slate-950">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Certifications />
-        <Stats />
-        <Testimonials />
-        <Hobbies />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen bg-slate-950 flex flex-col">
+        <Navbar />
+        <main className="flex-1">
+          <AnimatedRoutes />
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }
 

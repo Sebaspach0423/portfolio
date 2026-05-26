@@ -39,7 +39,7 @@ const Contador = ({ valor, sufijo }) => {
 }
 
 const Stats = () => (
-  <section className="section bg-slate-900/50">
+  <section className="section" style={{ background: 'rgba(5,10,20,0.5)' }}>
     <div className="wrap">
       <SectionTitle
         tag="Estadísticas"
@@ -53,16 +53,18 @@ const Stats = () => (
         {STATS.map((s, i) => (
           <motion.div
             key={s.etiqueta}
-            className="glass p-6 text-center hover:border-cyan-500/30 transition-all"
+            className="glass p-6 text-center group overflow-hidden relative"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
-            whileHover={{ y: -5, scale: 1.02 }}
+            whileHover={{ y: -6, boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(7,154,218,0.25)' }}
           >
-            <div className="text-3xl mb-3">{s.icono}</div>
+            {/* Top accent line */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-curious-blue-400/60 to-transparent" />
+            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">{s.icono}</div>
             <Contador valor={s.valor} sufijo={s.sufijo} />
-            <p className="text-slate-400 text-xs mt-2 leading-snug">{s.etiqueta}</p>
+            <p className="text-slate-500 text-xs mt-2 leading-snug">{s.etiqueta}</p>
           </motion.div>
         ))}
       </div>
@@ -76,24 +78,24 @@ const Stats = () => (
         transition={{ duration: 0.6 }}
       >
         <h3 className="text-white font-semibold mb-6 flex items-center gap-2">
-          <span className="text-green-400">●</span> Actividad de GitHub — último año
+          <span className="w-2 h-2 rounded-full bg-curious-blue-400 animate-pulse" />
+          Actividad de GitHub — último año
         </h3>
         <div className="overflow-x-auto pb-2">
           <div className="flex gap-1 min-w-max">
             {Array.from({ length: 52 }).map((_, semana) => (
               <div key={semana} className="flex flex-col gap-1">
                 {Array.from({ length: 7 }).map((_, dia) => {
-                  // Genera un color pseudo-aleatorio pero estable por posición
                   const rand = ((semana * 7 + dia) * 2654435761) % 100
                   const color =
-                    rand > 75 ? 'bg-green-400' :
-                    rand > 55 ? 'bg-green-600/70' :
-                    rand > 38 ? 'bg-green-800/60' :
-                    'bg-slate-800'
+                    rand > 75 ? 'bg-curious-blue-400' :
+                    rand > 55 ? 'bg-curious-blue-600/80' :
+                    rand > 38 ? 'bg-curious-blue-800/70' :
+                    'bg-slate-800/80'
                   return (
                     <div
                       key={dia}
-                      className={`w-3 h-3 rounded-sm ${color} hover:ring-1 hover:ring-green-400/50 transition-all`}
+                      className={`w-3 h-3 rounded-sm ${color} hover:ring-1 hover:ring-curious-blue-400/60 transition-all`}
                     />
                   )
                 })}
@@ -104,7 +106,7 @@ const Stats = () => (
         {/* Leyenda */}
         <div className="flex items-center justify-end gap-2 mt-3 text-slate-500 text-xs">
           <span>Menos</span>
-          {['bg-slate-800','bg-green-800/60','bg-green-600/70','bg-green-400'].map((c,i) => (
+          {['bg-slate-800/80','bg-curious-blue-800/70','bg-curious-blue-600/80','bg-curious-blue-400'].map((c, i) => (
             <div key={i} className={`w-3 h-3 rounded-sm ${c}`} />
           ))}
           <span>Más</span>

@@ -1,112 +1,96 @@
 import { useState, useEffect } from 'react'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMenu, FiX } from 'react-icons/fi'
 
-// Enlaces de navegación — cada id corresponde al id de una sección en el HTML
 const LINKS = [
-  { label: 'Inicio',      id: 'home' },
-  { label: 'Sobre mí',   id: 'about' },
-  { label: 'Habilidades', id: 'skills' },
-  { label: 'Proyectos',  id: 'projects' },
-  { label: 'Experiencia', id: 'experience' },
-  { label: 'Contacto',   id: 'contact' },
+  { label: 'Inicio',          path: '/' },
+  { label: 'Proyectos',       path: '/proyectos' },
+  { label: 'Certificaciones', path: '/certificaciones' },
+  { label: 'Blog',            path: '/blog' },
+  { label: 'Dashboard',       path: '/dashboard' },
+  { label: 'Contacto',        path: '/contacto' },
 ]
 
-const ir = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-
 const Navbar = () => {
-  const [scrolled, setScrolled]   = useState(false)
-  const [menuOpen, setMenuOpen]   = useState(false)
-  const [active,   setActive]     = useState('home')
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
-  // Detecta scroll para poner fondo al navbar y resaltar sección activa
+  useEffect(() => { setMenuOpen(false) }, [location.pathname])
+
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 20)
-      const current = LINKS.findIndex(({ id }) => {
-        const el = document.getElementById(id)
-        if (!el) return false
-        const r = el.getBoundingClientRect()
-        return r.top <= 120 && r.bottom > 120
-      })
-      if (current !== -1) setActive(LINKS[current].id)
-    }
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const fn = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
   }, [])
+
+  const linkClass = ({ isActive }) =>
+    `px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+      isActive
+        ? 'text-curious-blue-300 bg-curious-blue-500/15 border border-curious-blue-500/20'
+        : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+    }`
 
   return (
     <motion.nav
       initial={{ y: -70, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-slate-950/85 backdrop-blur-xl border-b border-white/5 shadow-xl' : ''
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-slate-950/85 backdrop-blur-xl border-b border-curious-blue-500/10 shadow-[0_4px_32px_rgba(0,0,0,0.4)]'
+          : ''
       }`}
     >
-      <div className="wrap flex items-center justify-between h-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
 
         {/* Logo */}
-        <button
-          onClick={() => ir('home')}
-          className="flex items-center gap-2 hover:opacity-80 transition"
-        >
-          <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm">W</span>
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-curious-blue-500 to-curious-blue-800
+                           flex items-center justify-center text-white font-bold text-sm
+                           shadow-lg shadow-curious-blue-900/50
+                           group-hover:shadow-curious-blue-500/30 group-hover:scale-105 transition-all duration-200">
+            W
+          </span>
           <span className="text-lg font-display font-bold grad-text">Walter Pacheco</span>
-        </button>
+        </Link>
 
-        {/* Links de escritorio */}
+        {/* Links escritorio */}
         <div className="hidden md:flex items-center gap-1">
-          {LINKS.map(({ label, id }) => (
-            <button
-              key={id}
-              onClick={() => ir(id)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                active === id
-                  ? 'text-cyan-400 bg-cyan-400/10'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
+          {LINKS.map(({ label, path }) => (
+            <NavLink key={path} to={path} end={path === '/'} className={linkClass}>
               {label}
-            </button>
+            </NavLink>
           ))}
         </div>
 
-        {/* Controles derecha */}
-        <div className="flex items-center gap-2">
-          {/* Botón menú móvil */}
-          <button
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menú"
-          >
-            {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
-          </button>
-        </div>
+        {/* Botón móvil */}
+        <button
+          className="md:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5
+                     border border-transparent hover:border-slate-700/50 transition-all"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
+        >
+          {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+        </button>
       </div>
 
-      {/* Menú móvil desplegable */}
+      {/* Menú móvil */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-white/5"
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-curious-blue-500/10"
           >
             <div className="px-4 pt-2 pb-4 flex flex-col gap-1">
-              {LINKS.map(({ label, id }) => (
-                <button
-                  key={id}
-                  onClick={() => { ir(id); setMenuOpen(false) }}
-                  className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                    active === id
-                      ? 'text-cyan-400 bg-cyan-400/10'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }`}
-                >
+              {LINKS.map(({ label, path }) => (
+                <NavLink key={path} to={path} end={path === '/'} className={linkClass}>
                   {label}
-                </button>
+                </NavLink>
               ))}
             </div>
           </motion.div>
