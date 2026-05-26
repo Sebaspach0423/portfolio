@@ -21,7 +21,7 @@ const TarjetaProyecto = ({ p }) => (
   >
     {/* Hover glow border */}
     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-         style={{ boxShadow: 'inset 0 0 0 1px rgba(7,154,218,0.35)' }} />
+         style={{ boxShadow: 'inset 0 0 0 1px rgba(0,214,143,0.35)' }} />
 
     {/* Card glass */}
     <div className="glass h-full overflow-hidden">
@@ -68,7 +68,7 @@ const TarjetaProyecto = ({ p }) => (
           </a>
           <Link to={`/proyectos/${p.id}`}
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-white text-sm font-semibold transition-all duration-200 hover:shadow-neon hover:-translate-y-0.5"
-            style={{ background: 'linear-gradient(135deg, #079ada, #006ca6)', boxShadow: '0 0 0 1px rgba(7,154,218,0.3)' }}>
+            style={{ background: 'linear-gradient(135deg, #00d68f, #007548)', boxShadow: '0 0 0 1px rgba(0,214,143,0.3)' }}>
             Ver más <FiArrowRight size={13} />
           </Link>
         </div>
@@ -97,7 +97,7 @@ const Proyectos = () => {
                     : 'text-slate-400 hover:text-white'
                 }`}
                 style={filtro === f
-                  ? { background: 'linear-gradient(135deg, #079ada, #006ca6)', boxShadow: '0 0 20px rgba(7,154,218,0.35)' }
+                  ? { background: 'linear-gradient(135deg, #00d68f, #007548)', boxShadow: '0 0 20px rgba(0,214,143,0.35)' }
                   : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }
                 }>
                 {f}
